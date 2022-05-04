@@ -1,0 +1,27 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Auctions in watchlist</h2>
+    {% for watchlist in watchlists %}
+        {% if user.id == watchlist.watcher %}
+            {% auction =
+
+            <div class="brd">
+                    Lot <a href="{% url 'listing'%}?id={{auction.id}}"> {{ auction.title }} </a> <br>
+
+                    Current bid: {{ auction.price }} <br>
+
+                    Description: {{ auction.description }} <br>
+
+                    Seller: {{ auction.seller }} <br>
+                    {% if auction.category %}
+                    Category: {{ auction.category }} <br>
+                    {% endif %}
+                    Watchlist: {{ auction.watchlist}} <br>
+                    {{ auction.post_date}} <br>
+            </div>
+        {% endif %}
+    {% endfor %}
+
+    TODO
+{% endblock %}
