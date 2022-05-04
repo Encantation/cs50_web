@@ -1,7 +1,38 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    <h2>Active Listings</h2>
+    <div class="brd" >
+        <h3>Lot {{ auction.title }} <br> <br></h3>
+        Current state: {{ auction.state }} <br><br>
+        Start price: {{ auction.price }} <br><br>
+        Description: {{ auction.description }} <br><br>
+        Seller: {{ auction.seller }} <br><br>
+        {% if auction.category %}
+        Category: {{ auction.category }} <br>
+        {% endif %}
+        {{ auction.post_date}} <br><br>
 
-    TODO
+        {% if message %}
+        <h4>{{ message }}</h4>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" id="user_id" name="user_id" value="{{user.id}}">
+            <input type="hidden" id="auction_id" name="auction_id" value="{{auction.id}}">
+            <br>
+            Current bid: {{max_bid}}, with {{ bids }} bids so far
+            <input type="number" id="bid_value" name="bid_value" min="{{max_bid}}" value="{{max_bid}}">
+            <input type="submit" name="bid" value="Bid">
+            <br>
+            <br>
+            <input type="submit" name="add_watch" value="Add to watchlist">
+            <br>
+            {% if user.id == auction.seller.id %}
+                <input type="submit" name="close_auc" value="Close auction">
+                <br>
+            {% endif %}
+        </form>
+    </div>
+
 {% endblock %}

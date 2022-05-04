@@ -1,0 +1,29 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <style>
+   .brd {
+    border: 4px double black; /* Параметры границы */
+    padding: 10px; /* Поля вокруг текста */
+     }
+     </style>
+    <h2>Active Listings</h2>
+    {% for auction in auctions %}
+
+            <div class="brd">
+                    Lot <a href="{% url 'listing'%}?id={{auction.id}}"> {{ auction.title }} </a> <br>
+                    Current state: {{ auction.state }} <br>
+                    Start price: {{ auction.price }} <br>
+
+                    Description: {{ auction.description }} <br>
+
+                    Seller: {{ auction.seller }} <br>
+                    {% if auction.category %}
+                    Category: {{ auction.category }} <br>
+                    {% endif %}
+                    {{ auction.post_date}} <br>
+            </div>
+
+    {% endfor %}
+
+{% endblock %}

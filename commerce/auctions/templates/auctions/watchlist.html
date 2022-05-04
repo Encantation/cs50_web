@@ -1,27 +1,32 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
+    <style>
+   .brd {
+    border: 4px double black; /* Параметры границы */
+    padding: 10px; /* Поля вокруг текста */
+     }
+     </style>
     <h2>Auctions in watchlist</h2>
     {% for watchlist in watchlists %}
-        {% if user.id == watchlist.watcher %}
-            {% auction =
-
             <div class="brd">
-                    Lot <a href="{% url 'listing'%}?id={{auction.id}}"> {{ auction.title }} </a> <br>
+                    Lot <a href="{% url 'listing'%}?id={{watchlist.auction.id}}"> {{ watchlist.auction.title }} </a> <br>
 
-                    Current bid: {{ auction.price }} <br>
+                    Current bid: {{ watchlist.auction.price }} <br>
 
-                    Description: {{ auction.description }} <br>
+                    Description: {{ watchlist.auction.description }} <br>
 
-                    Seller: {{ auction.seller }} <br>
-                    {% if auction.category %}
-                    Category: {{ auction.category }} <br>
+                    Seller: {{ watchlist.auction.seller }} <br>
+                    {% if watchlist.auction.category %}
+                    Category: {{ watchlist.auction.category }} <br>
                     {% endif %}
-                    Watchlist: {{ auction.watchlist}} <br>
-                    {{ auction.post_date}} <br>
+                    {{ watchlist.auction.post_date}} <br>
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="submit" name="rm_watch" value="Remove from watchlist"><br>
+                    <input type="hidden" id="watchlist_id" name="watchlist_id" value="{{watchlist.id}}">
+                </form>
             </div>
-        {% endif %}
     {% endfor %}
 
-    TODO
 {% endblock %}
